@@ -93,27 +93,34 @@ export function LocationsMap() {
           className="w-full h-auto pointer-events-none select-none opacity-80"
         />
         
-        {locations.map((loc) => {
+        {locations.map((loc, index) => {
           return (
             <div 
               key={loc.id} 
               className={`absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center ${activeLocationId === loc.id ? 'z-40' : 'z-10'}`}
               style={{ left: `${loc.x}%`, top: `${loc.y}%` }}
             >
-              {/* Blue Marker */}
-              <button 
-                onClick={() => setActiveLocationId(activeLocationId === loc.id ? null : loc.id)}
-                className="relative w-4 h-4 md:w-5 md:h-5 bg-[#0055ff] hover:bg-blue-600 rounded-full shrink-0 cursor-pointer transition-colors border-[3px] border-transparent hover:border-black" 
-                aria-label={`View ${loc.name}`}
-              />
-              
-              {/* Static Label (Always Visible) */}
-              <div 
-                className={`absolute bg-black text-white font-mono text-xs md:text-sm font-bold tracking-[0.15em] px-3 py-1.5 md:px-4 md:py-2.5 whitespace-nowrap top-1/2 -translate-y-1/2 pointer-events-none shadow-sm
-                  ${loc.labelPos === 'left' ? 'right-full mr-2 md:mr-3' : 'left-full ml-2 md:ml-3'}`}
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 350, damping: 25, delay: index * 0.15 }}
+                className="relative flex items-center justify-center"
               >
-                {loc.name}
-              </div>
+                {/* Blue Marker */}
+                <button 
+                  onClick={() => setActiveLocationId(activeLocationId === loc.id ? null : loc.id)}
+                  className="relative w-4 h-4 md:w-5 md:h-5 bg-[#0055ff] hover:bg-blue-600 rounded-full shrink-0 cursor-pointer transition-colors border-[3px] border-transparent hover:border-black" 
+                  aria-label={`View ${loc.name}`}
+                />
+                
+                {/* Static Label (Always Visible) */}
+                <div 
+                  className={`absolute bg-black text-white font-mono text-xs md:text-sm font-bold tracking-[0.15em] px-3 py-1.5 md:px-4 md:py-2.5 whitespace-nowrap top-1/2 -translate-y-1/2 pointer-events-none shadow-sm
+                    ${loc.labelPos === 'left' ? 'right-full mr-2 md:mr-3' : 'left-full ml-2 md:ml-3'}`}
+                >
+                  {loc.name}
+                </div>
+              </motion.div>
             </div>
           );
         })}
