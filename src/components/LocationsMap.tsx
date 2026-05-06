@@ -90,8 +90,7 @@ export function LocationsMap() {
         <img 
           src="https://cdn.prod.website-files.com/677376e1e97650585235ab96/677e1de06571eae8d537fc47_map.avif" 
           alt="World Map"
-          className="w-full h-auto pointer-events-none select-none"
-          style={{ filter: 'invert(100%)', WebkitFilter: 'invert(100%)' }}
+          className="w-full h-auto pointer-events-none select-none opacity-80"
         />
         
         {locations.map((loc) => {
